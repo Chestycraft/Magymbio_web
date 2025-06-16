@@ -1,8 +1,9 @@
 import ColorAdjuster from "../components/common/colorpicker";
 
-export default function (){
+const ColorPickerPage = () => {
+  return <div>
+    <ColorAdjuster/>
+  </div>;
+};
 
-    return(
-        <ColorAdjuster/>
-    )
-}
+export default ColorPickerPage;
