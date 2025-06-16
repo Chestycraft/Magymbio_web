@@ -1,0 +1,3 @@
+start the dev
+cd reactjs_nextjs/my-next-app
+npm run dev

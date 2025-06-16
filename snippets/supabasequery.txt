@@ -1,0 +1,15 @@
+how to querry through supabase
+
+1.make sure your supabase client is set up which contains your supabase url and anon key, 
+2.import the supabase client in your component
+in your project you can now querry 
+
+you can destructure the querry's return {data, error}
+
+now make these variables which is a destructured data and error, you can also rename it through data:newname
+const {data,error}
+data is what the return is, error is if it encounters error
+
+make sure btw that its an async because fetching from the database is async
+const {data,error} = await supabase.from("table).select("*").eq(first arg,second arg)this compares the two if its equal
+then for handling error you can do if(error){handleerror}
