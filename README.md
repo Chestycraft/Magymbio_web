@@ -1,19 +1,28 @@
-# MAGYMBO Fitness Center 🏋️‍♀️
+# 💪 MAGYMBO Web App
 
-A modern fitness center website built with **Next.js 14** and **Tailwind CSS**.
-
-## 🌟 Features
-- Glassmorphic design
-- User login page
-- Admin dashboard (WIP)
-- Color picker and layout experiments
-- Supabase integration planned
-
-## 🚧 Status
-This is an early version, still under development.
+A responsive web app for MAGYMBO Fitness Center. Built using **Next.js 15** and **Tailwind CSS**, this project allows gym members and owners to manage memberships, customize the site's appearance, and expand into a full admin dashboard.
 
 ---
 
-## 🔗 Live Preview (via Vercel)
-> Coming soon…
+## 🚀 Live Demo
 
+🌐 [https://magymbio-web.vercel.app](https://magymbio-web.vercel.app)
+
+---
+
+## 🛠️ Tech Stack
+
+- ⚛️ [Next.js 15](https://nextjs.org/)
+- 🎨 [Tailwind CSS](https://tailwindcss.com/)
+- 🧰 [Supabase](https://supabase.com/) (Auth + PostgreSQL DB)
+- 🔐 React Hooks + Context
+- ☁️ [Vercel](https://vercel.com/) (deployment)
+
+---
+
+## 📷 Screenshots
+
+> Add screenshots here once available:
+```md
+![Homepage](./screenshots/home.png)
+![Membership Tracker](./screenshots/members.png)
