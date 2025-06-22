@@ -20,7 +20,7 @@ const LoginForm = () => {
   const { data, error:googleerror } = await supabase.auth.signInWithOAuth({
   provider: 'google',
    options: {
-      redirectTo: 'http://localhost:3000/user_dashboard', // Or your production URL
+         redirectTo: `${window.location.origin}/user_dashboard`
     }
 });
      if(googleerror){
