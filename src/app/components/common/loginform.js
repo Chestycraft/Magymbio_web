@@ -20,7 +20,7 @@ const LoginForm = () => {
   const { data, error:googleerror } = await supabase.auth.signInWithOAuth({
   provider: 'google',
    options: {
-         redirectTo: `https://magymbo.vercel.app/user_dashboard`
+         redirectTo: `https://magymbio.vercel.app/user_dashboard`
     }
 });
      if(googleerror){
