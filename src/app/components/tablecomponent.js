@@ -252,12 +252,12 @@ export default function MembersTable() {
     <div className="p-6">
       <div className="max-w-full mx-auto bg-white dark:bg-gray-900 shadow-lg rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 px-6 pt-6 pb-2 bg-gradient-to-r from-gray-50 via-white to-gray-100 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800">
-          <input
-            value={globalFilter ?? ""}
-            onChange={(e) => setGlobalFilter(e.target.value)}
-            placeholder="Search members..."
+        <input
+          value={globalFilter ?? ""}
+          onChange={(e) => setGlobalFilter(e.target.value)}
+          placeholder="Search members..."
             className="border border-gray-300 dark:border-gray-700 px-3 py-2 rounded-lg w-full sm:w-1/2 focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-          />
+        />
           <div className="flex gap-2 items-center">
             <label className="flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300">
               <input
@@ -268,20 +268,20 @@ export default function MembersTable() {
               />
               Expiring (7 days)
             </label>
-            <button
-              onClick={handleAdd}
+        <button
+          onClick={handleAdd}
               className="bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-lg shadow hover:from-green-600 hover:to-green-700 transition font-semibold"
-            >
-              ➕ Add Member
-            </button>
-          </div>
+        >
+          ➕ Add Member
+        </button>
+      </div>
         </div>
         <div className="relative overflow-x-auto">
           <table className="w-full text-sm text-left text-gray-700 dark:text-gray-200">
             <thead className="text-xs uppercase bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-              {table.getHeaderGroups().map(headerGroup => (
-                <tr key={headerGroup.id}>
-                  {headerGroup.headers.map(header => (
+          {table.getHeaderGroups().map(headerGroup => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map(header => (
                     <th
                       key={header.id}
                       className="px-6 py-3 cursor-pointer select-none group font-bold tracking-wide"
@@ -295,19 +295,19 @@ export default function MembersTable() {
                       }}
                     >
                       <span className="flex items-center gap-1">
-                        {flexRender(header.column.columnDef.header, header.getContext())}
+                  {flexRender(header.column.columnDef.header, header.getContext())}
                         {sortBy.id === header.id && (
                           <span className="text-xs">
                             {sortBy.desc ? '▼' : '▲'}
                           </span>
                         )}
                       </span>
-                    </th>
-                  ))}
-                </tr>
+                </th>
               ))}
-            </thead>
-            <tbody>
+            </tr>
+          ))}
+        </thead>
+        <tbody>
               {table.getRowModel().rows.map((row, idx) => (
                 <tr
                   key={row.id}
@@ -316,15 +316,15 @@ export default function MembersTable() {
                     'hover:bg-blue-50 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-800'
                   }
                 >
-                  {row.getVisibleCells().map(cell => (
+              {row.getVisibleCells().map(cell => (
                     <td key={cell.id} className="px-6 py-3 align-middle">
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </td>
-                  ))}
-                </tr>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </td>
               ))}
-            </tbody>
-          </table>
+            </tr>
+          ))}
+        </tbody>
+      </table>
         </div>
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 px-6 py-4 bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
           <div className="flex items-center gap-2">
@@ -338,13 +338,13 @@ export default function MembersTable() {
                 <option key={n} value={n}>{n}</option>
               ))}
             </select>
-            <button
+          <button
               onClick={handlePrevPage}
               disabled={page === 1}
               className="px-3 py-1 border rounded disabled:opacity-50 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
-            >
-              Prev
-            </button>
+          >
+            Prev
+          </button>
             <input
               type="number"
               min={1}
@@ -353,14 +353,14 @@ export default function MembersTable() {
               onChange={handlePageInput}
               className="w-14 px-2 py-1 border rounded text-xs bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 focus:ring-2 focus:ring-blue-500 text-center"
             />
-            <button
+          <button
               onClick={handleNextPage}
               disabled={page === totalPages}
               className="px-3 py-1 border rounded disabled:opacity-50 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
-            >
-              Next
-            </button>
-          </div>
+          >
+            Next
+          </button>
+        </div>
           <div className="text-xs text-gray-500 dark:text-gray-400">
             Page {page} of {totalPages}
           </div>
