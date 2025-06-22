@@ -1,0 +1,36 @@
+1.get all users(paginated)
+#initialize the data
+    const [members, setmembers] = useState([])
+    const [pageInfo, setPageInfo] = useState(null)
+
+#fetch the data
+    const res = await fetch(`/api/members?page=${page}&limit=${limit}`)
+    const data = await res.json()
+
+#map the data
+    setmembers(data.members)
+    setPageInfo({ page: data.page, totalPages: data.totalPages })
+
+#manipulate the pages (through page and limit per page)
+//you can add error handling
+    1.//add to useStates
+    const [limit, setLimit] = useState(10)
+    const [page, setPage] = useState(1)
+
+    2.//add useEffect
+    useEffect(()=>{
+    const fetchData =async () =>{
+        const data = await fetchMembers(page, limit)
+        setData(data)
+    }
+    fetchData()
+    },[page,limit])
+
+    3.//make the fetch function
+    async function fetchMembers(page,limit){
+    const res = await fetch(`/api/members?page=${page}&limit=${limit}`)
+    return res.json()
+    }
+
+    4.render the button and then use the page variable to change pages and set fetchlimit
+    5.render the members
