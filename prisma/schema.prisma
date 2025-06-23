@@ -21,7 +21,7 @@ model Subscription {
 }
 
 model Admin {
-  id    Int    @id @unique @db.Int8
+  id    Int    @id @default(autoincrement())
   email String @unique
   admin String
 }
