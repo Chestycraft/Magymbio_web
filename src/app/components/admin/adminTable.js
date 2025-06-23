@@ -37,7 +37,7 @@ export default function AdminTable() {
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [editLoading, setEditLoading] = useState(false);
   const [addModalOpen, setAddModalOpen] = useState(false);
-  const [addForm, setAddForm] = useState({ id: '', email: '', role: '' });
+  const [addForm, setAddForm] = useState({ email: '', role: '' });
   const [addLoading, setAddLoading] = useState(false);
   const [sortBy, setSortBy] = useState({ id: null, desc: false });
   const [searchEmail, setSearchEmail] = useState("");
@@ -142,7 +142,7 @@ export default function AdminTable() {
   // Edit logic
   const handleEdit = (admin) => {
     setEditRow(admin.email);
-    setEditForm({ ...admin });
+    setEditForm({ email: admin.email, role: admin.role });
     setEditModalOpen(true);
   };
   const handleEditFormChange = (e) => {
@@ -158,12 +158,17 @@ export default function AdminTable() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editForm),
       });
-      if (!res.ok) throw new Error('Failed to update admin');
-      const updated = await res.json();
-      setData((prev) => prev.map((item) => (item.email === editRow ? updated : item)));
+      
+      const result = await res.json();
+      
+      if (!res.ok) {
+        throw new Error(result.error || 'Failed to update admin');
+      }
+      
+      setData((prev) => prev.map((item) => (item.email === editRow ? result : item)));
       setEditModalOpen(false);
     } catch (err) {
-      alert(err.message);
+      alert('Update failed: ' + err.message);
     } finally {
       setEditLoading(false);
     }
@@ -171,7 +176,7 @@ export default function AdminTable() {
 
   // Add logic
   const handleAdd = () => {
-    setAddForm({ id: '', email: '', role: '' });
+    setAddForm({ email: '', role: '' });
     setAddModalOpen(true);
   };
   const handleAddFormChange = (e) => {
@@ -187,13 +192,16 @@ export default function AdminTable() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(addForm),
       });
-      let newAdmin = null;
-      try {
-        newAdmin = await res.json();
-      } catch (jsonErr) {}
-      if (!res.ok) throw new Error('Failed to add admin');
-      setData((prev) => [newAdmin, ...prev]);
+      
+      const result = await res.json();
+      
+      if (!res.ok) {
+        throw new Error(result.error || 'Failed to add admin');
+      }
+      
+      setData((prev) => [result, ...prev]);
       setAddModalOpen(false);
+      setAddForm({ email: '', role: '' });
     } catch (err) {
       alert('Add failed: ' + err.message);
     } finally {
@@ -320,17 +328,6 @@ export default function AdminTable() {
       <Modal open={addModalOpen} onClose={() => setAddModalOpen(false)}>
         <form onSubmit={handleAddSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium">ID</label>
-            <input
-              name="id"
-              type="number"
-              value={addForm.id}
-              onChange={handleAddFormChange}
-              required
-              className="w-full border px-3 py-2 rounded"
-            />
-          </div>
-          <div>
             <label className="block text-sm font-medium">Email</label>
             <input
               name="email"
@@ -365,17 +362,6 @@ export default function AdminTable() {
       {/* Edit Modal */}
       <Modal open={editModalOpen} onClose={() => setEditModalOpen(false)}>
         <form onSubmit={handleEditSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium">ID</label>
-            <input
-              name="id"
-              type="number"
-              value={editForm.id}
-              onChange={handleEditFormChange}
-              required
-              className="w-full border px-3 py-2 rounded"
-            />
-          </div>
           <div>
             <label className="block text-sm font-medium">Email</label>
             <input
