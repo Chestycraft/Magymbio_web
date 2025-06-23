@@ -20,8 +20,10 @@ model Subscription {
   @@map("subscriptions")
 }
 
-model Admin {
+model Roles {
   id    Int    @id @default(autoincrement())
   email String @unique
   admin String
+
+  @@map("roles")
 }

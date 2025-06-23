@@ -46,23 +46,23 @@ export default function AdminTable() {
   const [emailLoading, setEmailLoading] = useState(false);
   const [emailError, setEmailError] = useState(null);
 
-  // Fetch all admins
+  // Fetch all roles
   useEffect(() => {
-    async function fetchAdmins() {
+    async function fetchRoles() {
       setLoading(true);
       setError(null);
       try {
         const res = await fetch(`/api/admin`);
-        if (!res.ok) throw new Error("Failed to fetch admins");
+        if (!res.ok) throw new Error("Failed to fetch roles");
         const json = await res.json();
-        setData(json.admins || []);
+        setData(json.roles || []);
       } catch (err) {
         setError(err.message);
       } finally {
         setLoading(false);
       }
     }
-    fetchAdmins();
+    fetchRoles();
   }, []);
 
   // Sorting and filtering logic
