@@ -19,3 +19,9 @@ model Subscription {
 
   @@map("subscriptions")
 }
+
+model Admin {
+  id    Int    @id @unique @db.Int8
+  email String @unique
+  admin String
+}
