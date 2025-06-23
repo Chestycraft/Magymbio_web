@@ -37,7 +37,7 @@ export default function AdminTable() {
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [editLoading, setEditLoading] = useState(false);
   const [addModalOpen, setAddModalOpen] = useState(false);
-  const [addForm, setAddForm] = useState({ id: '', email: '', admin: '' });
+  const [addForm, setAddForm] = useState({ id: '', email: '', role: '' });
   const [addLoading, setAddLoading] = useState(false);
   const [sortBy, setSortBy] = useState({ id: null, desc: false });
   const [searchEmail, setSearchEmail] = useState("");
@@ -87,7 +87,7 @@ export default function AdminTable() {
   const columns = useMemo(() => [
     { accessorKey: "id", header: "ID" },
     { accessorKey: "email", header: "Email" },
-    { accessorKey: "admin", header: "Admin" },
+    { accessorKey: "role", header: "Role" },
     {
       id: "actions",
       header: "Actions",
@@ -171,7 +171,7 @@ export default function AdminTable() {
 
   // Add logic
   const handleAdd = () => {
-    setAddForm({ id: '', email: '', admin: '' });
+    setAddForm({ id: '', email: '', role: '' });
     setAddModalOpen(true);
   };
   const handleAddFormChange = (e) => {
@@ -342,11 +342,11 @@ export default function AdminTable() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium">Admin</label>
+            <label className="block text-sm font-medium">Role</label>
             <input
-              name="admin"
+              name="role"
               type="text"
-              value={addForm.admin}
+              value={addForm.role}
               onChange={handleAddFormChange}
               required
               className="w-full border px-3 py-2 rounded"
@@ -388,11 +388,11 @@ export default function AdminTable() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium">Admin</label>
+            <label className="block text-sm font-medium">Role</label>
             <input
-              name="admin"
+              name="role"
               type="text"
-              value={editForm.admin}
+              value={editForm.role}
               onChange={handleEditFormChange}
               required
               className="w-full border px-3 py-2 rounded"
@@ -414,7 +414,7 @@ export default function AdminTable() {
           <div>
             <div><b>ID:</b> {emailResult.id}</div>
             <div><b>Email:</b> {emailResult.email}</div>
-            <div><b>Admin:</b> {emailResult.admin}</div>
+            <div><b>Role:</b> {emailResult.role}</div>
           </div>
         ) : (
           <div className="text-red-500">{emailError || "No result found."}</div>
