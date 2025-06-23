@@ -6,32 +6,62 @@ import { supabase } from '../supabase-client';
 const SupabaseContext = createContext();
 
 export const SupabaseProvider = ({ children }) => {
- const [session, setSession] = useState(undefined);
+  const [session, setSession] = useState(undefined);
+  const [role, setRole] = useState(null);
+  const [loading, setLoading] = useState(true); // loading state for role
 
- //this useeffect is for getting and setting session once and then it listens to authstate and if unauthenticated already it will stop listening
- useEffect(() => {
-    const getSession = async () => {
-
-      const { data: { session } } = await supabase.auth.getSession();//destructures the getsession it returns data which has a session object inside and also an error
+  useEffect(() => {
+    const getSessionAndRole = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
       setSession(session);
+
+      if (session?.user) {
+        const { data, error } = await supabase
+          .from('roles')
+          .select('role')
+          .eq('email', session.user.email)
+          .maybeSingle();
+
+        if (!error && data) {
+          setRole(data.role);
+        }
+      }
+
+      setLoading(false);
     };
-    
-    getSession();
-     //onauthchange returns data property, we destrucutre it here and rename it into"listener" using colon then we update the session
+
+    getSessionAndRole();
+
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
+
+      // Recheck role on login/logout
+      if (session?.user) {
+        supabase
+          .from('roles')
+          .select('role')
+          .eq('email', session.user.email)
+          .maybeSingle()
+          .then(({ data }) => {
+            setRole(data?.role ?? null);
+                setLoading(false); // ✅ important
+          });
+      } else {
+        setRole(null);
+          setLoading(false); // ✅ important
+      }
     });
-//cleanup
+
     return () => {
       listener?.subscription.unsubscribe();
     };
   }, []);
 
- return (
-    <SupabaseContext.Provider value={{ session }}>
+  return (
+    <SupabaseContext.Provider value={{ session, role, loading }}>
       {children}
     </SupabaseContext.Provider>
   );
-}
+};
 
 export const useSupabaseSession = () => useContext(SupabaseContext);

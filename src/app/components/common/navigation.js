@@ -4,9 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { motion } from "framer-motion";
-
+import { useSupabaseSession } from "@/app/lib/supabaseProvider";
 
 export const Navigation = () => {
+  const { session, role, loading } = useSupabaseSession();
   const pathname = usePathname();
   const [atTop, setAtTop] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -18,9 +19,12 @@ export const Navigation = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  if (loading) return null; // or a spinner
+
   const navItems = [
-     { href: "/", label: "Home"},
+    { href: "/", label: "Home"},
     { href: "/user_dashboard", label: "Tracker"},
+    ...(role === "admin" ? [{ href: "/admin/admin-dashboard", label: "Admin Dashboard" }] : [])
   ];
 
   const closeSidebar = () => setSidebarOpen(false);

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { supabase } from './../../supabase-client';
+import { supabase } from '../../supabase-client';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -20,7 +20,7 @@ const LoginForm = () => {
   const { data, error:googleerror } = await supabase.auth.signInWithOAuth({
   provider: 'google',
    options: {
-         redirectTo: `https://magymbio-web.vercel.app/user_dashboard`
+         redirectTo: `https://magymbio-web.vercel.app/`
     }
 });
      if(googleerror){
