@@ -37,7 +37,7 @@ export default function AdminTable() {
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [editLoading, setEditLoading] = useState(false);
   const [addModalOpen, setAddModalOpen] = useState(false);
-  const [addForm, setAddForm] = useState({ email: '', role: '' });
+  const [addForm, setAddForm] = useState({ name: '', email: '', role: '' });
   const [addLoading, setAddLoading] = useState(false);
   const [sortBy, setSortBy] = useState({ id: null, desc: false });
   const [searchEmail, setSearchEmail] = useState("");
@@ -86,6 +86,7 @@ export default function AdminTable() {
   // Table columns
   const columns = useMemo(() => [
     { accessorKey: "id", header: "ID" },
+    { accessorKey: "name", header: "Name" },
     { accessorKey: "email", header: "Email" },
     { accessorKey: "role", header: "Role" },
     {
@@ -142,7 +143,7 @@ export default function AdminTable() {
   // Edit logic
   const handleEdit = (admin) => {
     setEditRow(admin.email);
-    setEditForm({ email: admin.email, role: admin.role });
+    setEditForm({ name: admin.name, email: admin.email, role: admin.role });
     setEditModalOpen(true);
   };
   const handleEditFormChange = (e) => {
@@ -176,7 +177,7 @@ export default function AdminTable() {
 
   // Add logic
   const handleAdd = () => {
-    setAddForm({ email: '', role: '' });
+    setAddForm({ name: '', email: '', role: '' });
     setAddModalOpen(true);
   };
   const handleAddFormChange = (e) => {
@@ -201,7 +202,7 @@ export default function AdminTable() {
       
       setData((prev) => [result, ...prev]);
       setAddModalOpen(false);
-      setAddForm({ email: '', role: '' });
+      setAddForm({ name: '', email: '', role: '' });
     } catch (err) {
       alert('Add failed: ' + err.message);
     } finally {
@@ -328,6 +329,17 @@ export default function AdminTable() {
       <Modal open={addModalOpen} onClose={() => setAddModalOpen(false)}>
         <form onSubmit={handleAddSubmit} className="space-y-4">
           <div>
+            <label className="block text-sm font-medium">Name</label>
+            <input
+              name="name"
+              type="text"
+              value={addForm.name}
+              onChange={handleAddFormChange}
+              required
+              className="w-full border px-3 py-2 rounded"
+            />
+          </div>
+          <div>
             <label className="block text-sm font-medium">Email</label>
             <input
               name="email"
@@ -362,6 +374,17 @@ export default function AdminTable() {
       {/* Edit Modal */}
       <Modal open={editModalOpen} onClose={() => setEditModalOpen(false)}>
         <form onSubmit={handleEditSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium">Name</label>
+            <input
+              name="name"
+              type="text"
+              value={editForm.name}
+              onChange={handleEditFormChange}
+              required
+              className="w-full border px-3 py-2 rounded"
+            />
+          </div>
           <div>
             <label className="block text-sm font-medium">Email</label>
             <input
