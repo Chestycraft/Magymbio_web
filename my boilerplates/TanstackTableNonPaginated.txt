@@ -1,0 +1,81 @@
+TanStack Table Non-Paginated Boilerplate Tutorial
+===============================================
+
+This guide explains how to use the TanStack Table non-paginated boilerplate in your React projects.
+
+1. **Basic Usage**
+------------------
+- Import the component:
+  ```js
+  import TanstackTableNonPaginated from './TanstackTableNonPaginated';
+  ```
+- Use it in your JSX:
+  ```js
+  <TanstackTableNonPaginated />
+  ```
+  This will render the table with the default columns and data.
+
+2. **Customizing Columns**
+--------------------------
+- Define your own columns array:
+  ```js
+  const columns = [
+    { accessorKey: 'id', header: 'ID' },
+    { accessorKey: 'name', header: 'Name' },
+    { accessorKey: 'email', header: 'Email' },
+    // ...
+  ];
+  ```
+- Pass it as a prop:
+  ```js
+  <TanstackTableNonPaginated columnsProp={columns} />
+  ```
+
+3. **Customizing Data**
+-----------------------
+- Prepare your data array:
+  ```js
+  const data = [
+    { id: 1, name: 'Alice', email: 'alice@example.com' },
+    // ...
+  ];
+  ```
+- Pass it as a prop:
+  ```js
+  <TanstackTableNonPaginated data={data} />
+  ```
+
+4. **Fetching Data from an API**
+--------------------------------
+- Use React state and effects to fetch data:
+  ```js
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    fetch('/api/your-endpoint')
+      .then(res => res.json())
+      .then(json => setData(json));
+  }, []);
+  <TanstackTableNonPaginated data={data} />
+  ```
+
+5. **Custom Cell Rendering**
+----------------------------
+- In your columns definition, use the `cell` property:
+  ```js
+  const columns = [
+    {
+      accessorKey: 'name',
+      header: 'Name',
+      cell: info => <b>{info.getValue()}</b>,
+    },
+    // ...
+  ];
+  ```
+
+6. **Styling**
+--------------
+- The boilerplate uses a basic HTML table. Style it as needed with CSS or a UI library.
+
+7. **Extending Functionality**
+------------------------------
+- Add sorting, filtering, or other TanStack Table plugins as needed. See the [TanStack Table docs](https://tanstack.com/table/v8/docs/guide/introduction) for more. 

@@ -1,0 +1,87 @@
+TanStack Table Paginated Boilerplate Tutorial
+============================================
+
+This guide explains how to use the TanStack Table paginated boilerplate in your React projects.
+
+1. **Basic Usage**
+------------------
+- Import the component:
+  ```js
+  import TanstackTablePaginated from './TanstackTablePaginated';
+  ```
+- Use it in your JSX:
+  ```js
+  <TanstackTablePaginated />
+  ```
+  This will render the table with the default columns, data, and a page size of 5.
+
+2. **Customizing Columns**
+--------------------------
+- Define your own columns array:
+  ```js
+  const columns = [
+    { accessorKey: 'id', header: 'ID' },
+    { accessorKey: 'name', header: 'Name' },
+    // ...
+  ];
+  ```
+- Pass it as a prop:
+  ```js
+  <TanstackTablePaginated columnsProp={columns} />
+  ```
+
+3. **Customizing Data**
+-----------------------
+- Prepare your data array:
+  ```js
+  const data = [
+    { id: 1, name: 'Alice' },
+    // ...
+  ];
+  ```
+- Pass it as a prop:
+  ```js
+  <TanstackTablePaginated data={data} />
+  ```
+
+4. **Fetching Data from an API**
+--------------------------------
+- Use React state and effects to fetch data:
+  ```js
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    fetch('/api/your-endpoint')
+      .then(res => res.json())
+      .then(json => setData(json));
+  }, []);
+  <TanstackTablePaginated data={data} />
+  ```
+
+5. **Changing Page Size**
+-------------------------
+- Pass a `pageSize` prop:
+  ```js
+  <TanstackTablePaginated pageSize={10} />
+  ```
+
+6. **Custom Cell Rendering**
+----------------------------
+- In your columns definition, use the `cell` property:
+  ```js
+  const columns = [
+    {
+      accessorKey: 'name',
+      header: 'Name',
+      cell: info => <b>{info.getValue()}</b>,
+    },
+    // ...
+  ];
+  ```
+
+7. **Styling**
+--------------
+- The boilerplate uses a basic HTML table. Style it as needed with CSS or a UI library.
+
+8. **Extending Functionality**
+------------------------------
+- Add sorting, filtering, or other TanStack Table plugins as needed. See the [TanStack Table docs](https://tanstack.com/table/v8/docs/guide/introduction) for more. 
